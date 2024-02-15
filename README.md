@@ -8,31 +8,49 @@
     </thead>
     <tbody>
     <tr>
-        <td>Skeleton package</td>
-        <td>January 3, 2024</td>
-        <td>Detailed description of the API of the Skeleton package.</td>
+        <td>Jira package</td>
+        <td>February 15, 2024</td>
+        <td>Detailed description of the API of the Jira package.</td>
     </tr>
     </tbody>
 </table>
 
 # Overview
 
+The JIRA allows to interact with the proprietary issue tracking product developed by Atlassian.
+
 # Javascript API
 
-The Javascript API of the skeleton package has two pieces:
+The Javascript API of the jira package has two pieces:
 
 - **HTTP requests**
 - **Flow steps**
 
 ## HTTP requests
-You can make `GET`,`PUT`,`PATCH`,`DELETE` requests to the [skeleton API](API_URL_HERE) like this:
+You can make `GET`,`PUT`,`PATCH`,`DELETE` requests to the [jira API](https://developer.atlassian.com/server/jira/platform/rest-apis) like this:
+
 ```javascript
-var response = pkg.skeleton.api.get('/path3')
-var response = pkg.skeleton.api.put('/path1/:testPath', body)
-var response = pkg.skeleton.api.put('/path1/:testPath')
-var response = pkg.skeleton.api.patch('/path2?param2=' + httpOptions.query.param2 + '&param3=' + httpOptions.query.param3 + '', body)
-var response = pkg.skeleton.api.patch('/path2?param2=' + httpOptions.query.param2 + '&param3=' + httpOptions.query.param3 + '')
-var response = pkg.skeleton.api.delete('/path4')
+var response = pkg.jira.api.get('/issue/createmeta')
+var response = pkg.jira.api.get('/issue/createmeta?projectKeys=QA,XSS')
+var response = pkg.jira.api.post('/issue', {
+    "fields": {
+        "project":
+            {
+                "key": "TEST"
+            },
+        "summary": "REST ye merry gentlemen.",
+        "description": "Creating of an issue using project keys and issue type names using the REST API",
+        "issuetype": {
+            "name": "Bug"
+        }
+    }
+})
+var response = pkg.jira.api.put('/issue/{issueName}/editmeta',{
+    "fields": {
+        "assignee":{"name":"charlie"}
+    }
+})
+var response = pkg.jira.api.delete('/issue/{issueName}')
 ```
 
 Please take a look at the documentation of the [HTTP service](https://github.com/slingr-stack/http-service)
@@ -205,7 +223,6 @@ For more information about how shortcuts or flow steps work, and how they are ge
 
 ## Dependencies
 * HTTP Service (v1.3.7)
-* Oauth Package (v1.0.19) // TODO review and remove if its needed
 
 ## About SLINGR
 

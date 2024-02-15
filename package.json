@@ -1,6 +1,6 @@
 {
-    "name": "skeleton",
-    "label": "Skeleton Package",
+    "name": "jira",
+    "label": "Jira Package",
     "dependencies": [
         {
             "type": "service",
@@ -17,47 +17,46 @@
     "configurationBuilder": "/configurationBuilder.js",
     "configuration": [
         {
-            "name": "SKELETON_API_BASE_URL",
-            "label": "Skeleton Api Url",
-            "type": "label",
-            "value": "https://example.com/"
+            "name": "username",
+            "label": "Username",
+            "description": "JIRA username or email",
+            "type": "text",
+            "required": true
         },
         {
-            "name": "choice",
-            "label": "Choice",
-            "required": false,
-            "defaultValue": "true",
-            "type": "buttonsGroup",
+            "name": "password",
+            "label": "Password",
+            "description": "JIRA user's password",
+            "type": "password",
+            "required": true
+        },
+        {
+            "name": "JIRA_API_BASE_URL",
+            "label": "JIRA REST URL",
+            "description": "This is the host of your JIRA instance. For example, 'https://company.jira.com'.",
+            "type": "text",
+            "required": true
+        },
+        {
+            "name": "webhook",
+            "label": "Webhook URL",
+            "type": "label",
+            "value": "@config.WEBHOOK_URL"
+        },
+        {
+            "name": "important",
+            "label": "Important!",
+            "value": "You need to enable API access to your JIRA instance.",
+            "type": "info",
             "typeOptions": {
-                "allowCustom": true,
-                "possibleValues": [
-                    {
-                        "label": "True",
-                        "name": "true"
-                    },
-                    {
-                        "label": "False",
-                        "name": "false"
-                    },
-                    {
-                        "label": "Other",
-                        "name": "other"
-                    }
-                ]
+                "alertType": "warning"
             }
         },
         {
-            "name": "text",
-            "label": "Text",
-            "type": "text",
-            "required": "false",
-            "visibility": "config.choice == 'true'"
-        },
-        {
-            "name": "info",
-            "label": "info",
-            "type": "label",
-            "value": "'info'"
+            "name": "config",
+            "label": "Configuration",
+            "value": "You will need to configure a webhook in JIRA using the URL indicated above in the field 'Webhook URL'.",
+            "type": "info"
         }
     ],
     "events": [
@@ -85,18 +84,8 @@
         },
         {
             "type": "flowStep",
-            "namespace": "apiCallSkeleton",
-            "path": "/flowSteps/apiCallSkeleton"
-        },
-        {
-            "type": "flowStep",
-            "namespace": "customFlow",
-            "path": "/flowSteps/customFlow"
-        },
-        {
-            "type": "uiService",
-            "namespace": "testUiService",
-            "path": "/uiServices/testUiService"
+            "namespace": "apiCallJira",
+            "path": "/flowSteps/apiCallJira"
         }
     ]
 }
